@@ -1,9 +1,9 @@
 {
   "name": "pong2k-express",
   "version": "0.0.0",
-  "private": true,
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "node server.js",
     "debug": "nodemon --inspect ./bin/www",
     "db:create": "createdb pong2k_dev",
     "db:drop": "dropdb pong2k_dev"
@@ -30,9 +30,5 @@
   },
   "engines": {
     "node": "8.1.4"
-  },
-  "main": "server.js",
-  "repository": "git@github.com:melonpanda/Pong2K.git",
-  "author": "Jessie Pepper <jessie.k.pepper@gmail.com>",
-  "license": "MIT"
+  }
 }
