@@ -380,7 +380,7 @@ MainState.prototype = {
       myLogger(ball)
     } else if (this.game.state.states['main']._ballChoice == "pixel") {
       var ball = game.add.sprite(x, y, 'pixel');
-      ball.scale.setTo(.009, .009ç);
+      ball.scale.setTo(.009, .009);
       myLogger(ball)
     } else if (this.game.state.states['main']._ballChoice == "doge") {
       var ball = game.add.sprite(x, y, 'doge');
