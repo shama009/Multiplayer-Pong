@@ -133,11 +133,11 @@ MainState.prototype = {
     game.load.image('paddleLeft', 'public/assets/image/paddleBlue.png');
     game.load.image('paddleRight', 'public/assets/image/paddleRed.png');
 
-    game.load.image('pixel', 'public/assets/image/ball4.png');
+    game.load.image('pixel', 'public/assets/image/ballPong.png');
     game.load.image('doge', 'public/assets/image/doge_ball2.png');
     game.load.image('jason', 'public/assets/image/jason_face.png');
 
-    game.load.image('background', 'public/assets/image/pongBoard2.png');
+    game.load.image('background', 'public/assets/image/fancy-court.png');
 
     game.load.bitmapFont('2P', 'public/assets/font/PressStart2P/2P.png', 'public/assets/font/PressStart2P/2P.xml');
 
@@ -376,11 +376,11 @@ MainState.prototype = {
     //create ball with physics//
     if (properties.playerNumber == 2) {
       var ball = game.add.sprite(x, y, 'pixel');
-      ball.scale.setTo(.50, .50);
+      ball.scale.setTo(.5, .5);
       myLogger(ball)
     } else if (this.game.state.states['main']._ballChoice == "pixel") {
       var ball = game.add.sprite(x, y, 'pixel');
-      ball.scale.setTo(.50, .50);
+      ball.scale.setTo(.009, .009ç);
       myLogger(ball)
     } else if (this.game.state.states['main']._ballChoice == "doge") {
       var ball = game.add.sprite(x, y, 'doge');

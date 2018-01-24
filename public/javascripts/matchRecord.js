@@ -23,7 +23,7 @@ let MatchRecordSelectState = function(game) {
 MatchRecordSelectState.prototype = {
 
   preload: function() {
-    game.load.image('background', 'public/assets/image/pongBoard2.png');
+    game.load.image('background', 'public/assets/image/fancy-court.png');
 
     game.load.bitmapFont('2P', 'public/assets/font/PressStart2P/2P.png', 'public/assets/font/PressStart2P/2P.xml');
 
