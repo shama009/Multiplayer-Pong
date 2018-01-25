@@ -120,11 +120,11 @@ PlayerSelectState.prototype = {
     if (this.pixelBall_yes && this.pixelBall_yes.isDown) {
       this.game.state.states['main']._ballChoice = "pixel";
       this.game.state.start('main');
-    } else if (this.dogeBall_yes && this.dogeBall_yes.isDown) {
-      this.game.state.states['main']._ballChoice = "doge";
+    } else if (this.coolBall_yes && this.coolBall_yes.isDown) {
+      this.game.state.states['main']._ballChoice = "cool";
       this.game.state.start('main');
-    } else if (this.jasonBall_yes && this.jasonBall_yes.isDown && properties.playerName != '') {
-      this.game.state.states['main']._ballChoice = "jason";
+    } else if (this.poopBall_yes && this.poopBall_yes.isDown && properties.playerName != '') {
+      this.game.state.states['main']._ballChoice = "poop";
       this.game.state.start('main');
     }
 
@@ -171,8 +171,8 @@ PlayerSelectState.prototype = {
 
   selectBall: function() {
     this.pixelBall_yes = game.input.keyboard.addKey(Phaser.Keyboard.P);
-    this.dogeBall_yes = game.input.keyboard.addKey(Phaser.Keyboard.D);
-    this.jasonBall_yes = game.input.keyboard.addKey(Phaser.Keyboard.J);
+    this.coolBall_yes = game.input.keyboard.addKey(Phaser.Keyboard.C);
+    this.poopBall_yes = game.input.keyboard.addKey(Phaser.Keyboard.K);
 
     this.textfield.visible = false;
     this.enterYourName_text.visible = false;
