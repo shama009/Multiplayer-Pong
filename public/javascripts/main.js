@@ -134,7 +134,7 @@ MainState.prototype = {
     game.load.image('paddleRight', 'public/assets/image/paddleRed.png');
 
     game.load.image('pixel', 'public/assets/image/ball4.png');
-    game.load.image('doge', 'public/assets/image/doge_ball2.png');
+    game.load.image('travo', 'public/assets/image/travo.png');
     game.load.image('jason', 'public/assets/image/jason_face.png');
 
     game.load.image('background', 'public/assets/image/fancy-court.png');
@@ -383,8 +383,8 @@ MainState.prototype = {
       ball.scale.setTo(.5, .5);
       myLogger(ball)
     } else if (this.game.state.states['main']._ballChoice == "doge") {
-      var ball = game.add.sprite(x, y, 'doge');
-      ball.scale.setTo(.35, .35);
+      var ball = game.add.sprite(x, y, 'travo');
+      ball.scale.setTo(.09, .09);
     } else if (this.game.state.states['main']._ballChoice == "jason") {
       var ball = game.add.sprite(x, y, 'jason');
       ball.scale.setTo(.50, .50);
