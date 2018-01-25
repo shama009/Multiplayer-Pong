@@ -13,11 +13,6 @@ var db = require('./models/index.js');
 
 var {Score_2P} = require('./models');
 
-// Set default route to view index file
-app.get('/', function(req, res) {
-  res.render(__dirname + '/views/index.ejs');
-});
-
 db.sequelize.sync().then(function() {
 
 });// Listen on a dynamically assigned port or port 3000 (depending on environment)
@@ -279,7 +274,11 @@ app.use(cookieParser());
 // app.use(express.static(path.join(public)));
 app.use(express.static(__dirname));
 
-// app.use('/', index);
+var teamControllerRoutes = require("./routes/index.js");
+app.use("/", teamControllerRoutes);
+
+var htmlRoutes = require("./routes/html-routes.js");
+app.use("/", htmlRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
