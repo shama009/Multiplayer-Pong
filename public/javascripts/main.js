@@ -47,8 +47,8 @@ let gameText = {
   gamePresents: 'UCSD BootCamp Games',
   pong2k: 'if.js',
   enterYourName: 'Enter nickname : ',
-  ballOptions: 'Pixel Ball...\n \nDoge Ball...\n \nJason Ball...',
-  ballKeyCommands: '[P]\n \n[D]\n \n[J]',
+  ballOptions: 'Pixel Ball...\n \nCool Ball...\n \nPoop Ball...',
+  ballKeyCommands: '[P]\n \n[C]\n \n[K]',
   oneP: 'Single Player\nPress[1]',
   twoP: 'Two Player\nPress [2]',
   instructions: 'BLUE paddle:\n \n UP and DOWN arrow keys.\n \n \n \nFirst to reach\n \n 3 points wins!',
@@ -135,7 +135,9 @@ MainState.prototype = {
 
     game.load.image('pixel', 'public/assets/image/ball4.png');
     game.load.image('travo', 'public/assets/image/travo.png');
-    game.load.image('jason', 'public/assets/image/jason_face.png');
+    game.load.image('cool', 'public/assets/image/cool.png');
+    game.load.image('blown', 'public/assets/image/blown.png');
+    game.load.image('poop', 'public/assets/image/poop.png');
 
     game.load.image('background', 'public/assets/image/fancy-court.png');
 
@@ -309,7 +311,7 @@ MainState.prototype = {
       this.paddleRight = this.createPaddleRight(game.world.width - 15, game.world.centerY);
       this.playerNameLeft = game.add.bitmapText(200, game.world.height - 80, '2P', properties.playerName, 30);
       this.playerNameLeft.anchor.x = 0.5;
-      this.playerNameRight = game.add.bitmapText(game.world.width - 200, game.world.height - 80, '2P', 'Pongbot', 30);
+      this.playerNameRight = game.add.bitmapText(game.world.width - 200, game.world.height - 80, '2P', 'Bot', 30);
       this.playerNameRight.anchor.x = 0.5;
     } else if (properties.playerSide == 'left') {
       this.paddle = this.createPaddleLeft(15, game.world.centerY);
@@ -382,12 +384,12 @@ MainState.prototype = {
       var ball = game.add.sprite(x, y, 'pixel');
       ball.scale.setTo(.5, .5);
       myLogger(ball)
-    } else if (this.game.state.states['main']._ballChoice == "doge") {
-      var ball = game.add.sprite(x, y, 'travo');
-      ball.scale.setTo(.09, .09);
-    } else if (this.game.state.states['main']._ballChoice == "jason") {
-      var ball = game.add.sprite(x, y, 'jason');
-      ball.scale.setTo(.50, .50);
+    } else if (this.game.state.states['main']._ballChoice == "cool") {
+      var ball = game.add.sprite(x, y, 'cool');
+      ball.scale.setTo(.03, .03);
+    } else if (this.game.state.states['main']._ballChoice == "poop") {
+      var ball = game.add.sprite(x, y, 'poop');
+      ball.scale.setTo(.1, .1);
     }
     ball.anchor.setTo(0.5, 0.5);
     game.physics.arcade.enable(ball);
