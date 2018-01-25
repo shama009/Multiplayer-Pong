@@ -18,13 +18,13 @@ let PongIntroState = function(game) {
 PongIntroState.prototype = {
 
   preload: function() {
-    game.load.image('background', 'public/assets/image/pongGalaxy2.png');
+    game.load.image('background', 'public/assets/image/backgroundIntro.png');
 
     game.load.bitmapFont('2P', 'public/assets/font/PressStart2P/2P.png', 'public/assets/font/PressStart2P/2P.xml');
 
     game.load.audio('success', ['public/assets/sound/success.ogg', 'public/assets/sound/success.mp3']);
 
-    this.game.load.spritesheet('bubbleBuddy', 'public/assets/image/bubbs_animated_green_huge.png', 288, 288, 36);
+    this.game.load.spritesheet('bubbleBuddy', 'public/assets/image/introUCSD.png', 240, 240, 36);
 
   },
 
@@ -42,7 +42,7 @@ PongIntroState.prototype = {
     game.time.events.add(Phaser.Timer.SECOND * 5, this.endGame, this);
 
     this.bubbleBuddy = this.game.add.sprite(game.world.centerX - 160, game.world.centerY - 150, 'bubbleBuddy');
-    this.bubbleBuddy.animations.add('wobble', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], 8, true);
+    this.bubbleBuddy.animations.add('wobble', [ 0,1,2,3,0,1,2,3,0,0,1,2,3,0,1,2,3,0], 3,  true);
     this.bubbleBuddy.animations.play('wobble');
   },
 

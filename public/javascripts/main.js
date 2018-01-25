@@ -44,9 +44,9 @@ let properties = {
 
 let gameText = {
   //text variables//
-  gamePresents: 'LocalHost Games',
-  pong2k: '**** PONG_2K ****',
-  enterYourName: 'ENTER YOUR NAME.',
+  gamePresents: 'UCSD BootCamp Games',
+  pong2k: 'if.js',
+  enterYourName: 'Enter nickname : ',
   ballOptions: 'Pixel Ball...\n \nDoge Ball...\n \nJason Ball...',
   ballKeyCommands: '[P]\n \n[D]\n \n[J]',
   oneP: 'Single Player\nPress[1]',
