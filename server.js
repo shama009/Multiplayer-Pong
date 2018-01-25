@@ -1,5 +1,5 @@
 function myLogger(string) {
-  // console.log(string);
+   console.log(string);
 }
 
 // Import dependencies
@@ -19,7 +19,7 @@ app.get('/', function(req, res) {
 });
 
 db.sequelize.sync().then(function() {
-  console.log("SYNCDB");
+
 });// Listen on a dynamically assigned port or port 3000 (depending on environment)
 server.listen(process.env.PORT || 3000);
 
