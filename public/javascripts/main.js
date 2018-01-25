@@ -45,8 +45,8 @@ let properties = {
 let gameText = {
   //text variables//
   gamePresents: 'UCSD BootCamp Games',
-  pong2k: 'if.js',
-  enterYourName: 'Enter nickname : ',
+  pong2k: ' if.js\n\nMultiplayer Pong',
+  enterYourName: '\nEnter nickname : ',
   ballOptions: 'Pixel Ball...\n \nCool Ball...\n \nPoop Ball...',
   ballKeyCommands: '[P]\n \n[C]\n \n[K]',
   oneP: 'Single Player\nPress[1]',
