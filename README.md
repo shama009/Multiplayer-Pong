@@ -1,5 +1,5 @@
 # Multiplayer-Pong
-It is a multiplayer Pong game application. [Play](https://multiplayer-pong-ifjs.herokuapp.com/)
+[Play.](https://multiplayer-pong-ifjs.herokuapp.com/)
 
 # Instructions
 
