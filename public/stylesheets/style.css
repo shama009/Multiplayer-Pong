@@ -1,17 +1,15 @@
 body {
   margin: 0 auto;
+  background: url("https://images4.alphacoders.com/555/555581.jpg");
+
+  background-size: 100%;
 }
 
 #background {
-  /*light green*/
-  background-color: #d5e7ca;
-  /*sunset*/
-  /*background-color: #e5d2c6;*/
-  /*light yellow*/
-  /*background-color: #e6eebe;*/
-  width: 100vw;
-  height: 100vh;
+  padding-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+  

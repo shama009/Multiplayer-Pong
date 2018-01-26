@@ -8,7 +8,7 @@ WebFontConfig = {
   }
 };
 
-let PlayerSelectState = function(game) {
+let PlayerSelectState = function (game) {
   this.backgroundImage
   this.dividingLine
   this.textarea
@@ -29,7 +29,7 @@ let PlayerSelectState = function(game) {
 
 PlayerSelectState.prototype = {
 
-  preload: function() {
+  preload: function () {
     game.load.image('background', 'public/assets/image/fancy-court.png');
 
     game.load.bitmapFont('2P', 'public/assets/font/PressStart2P/2P.png', 'public/assets/font/PressStart2P/2P.xml');
@@ -45,7 +45,7 @@ PlayerSelectState.prototype = {
 
   },
 
-  create: function() {
+  create: function () {
 
     this.createGraphics();
 
@@ -62,7 +62,7 @@ PlayerSelectState.prototype = {
     // this.bubbleBuddy.animations.play('wobble');
   },
 
-  createGraphics: function() {
+  createGraphics: function () {
     this.introMusic = game.add.audio('Ternary', 1, true);
 
     this.backgroundImage = game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.5);
@@ -97,7 +97,7 @@ PlayerSelectState.prototype = {
     this.textfield.blockInput = false;
   },
 
-  createDividingLine: function(x, y) {
+  createDividingLine: function (x, y) {
     let dividingLine = game.add.graphics(x, y);
     dividingLine.lineStyle(5, 0x848484, 1);
 
@@ -107,7 +107,7 @@ PlayerSelectState.prototype = {
     }
   },
 
-  update: function() {
+  update: function () {
     if (this.enterName.isDown) {
       if (this.textfield.text._text <= 0) {
         properties.playerName = "Anonymous"
@@ -122,6 +122,15 @@ PlayerSelectState.prototype = {
       this.game.state.start('main');
     } else if (this.coolBall_yes && this.coolBall_yes.isDown) {
       this.game.state.states['main']._ballChoice = "cool";
+      this.game.state.start('main');
+    } else if (this.travoBall_yes && this.travoBall_yes.isDown) {
+      this.game.state.states['main']._ballChoice = "travo";
+      this.game.state.start('main');
+    } else if (this.johnBall_yes && this.johnBall_yes.isDown) {
+      this.game.state.states['main']._ballChoice = "john";
+      this.game.state.start('main');
+    } else if (this.daveBall_yes && this.daveBall_yes.isDown) {
+      this.game.state.states['main']._ballChoice = "dave";
       this.game.state.start('main');
     } else if (this.poopBall_yes && this.poopBall_yes.isDown && properties.playerName != '') {
       this.game.state.states['main']._ballChoice = "poop";
@@ -146,14 +155,14 @@ PlayerSelectState.prototype = {
     this.introMusic.play()
   },
 
-  selectName: function() {
+  selectName: function () {
     this.singlePlayer_text.visible = false;
     this.twoPlayer_text.visible = false;
     this.ballOptions_text.visible = false;
     this.ballKeyCommands_text.visible = false;
   },
 
-  playerSelect: function() {
+  playerSelect: function () {
     this.singlePlayer_yes = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
     this.twoPlayer_yes = game.input.keyboard.addKey(Phaser.Keyboard.TWO);
 
@@ -169,10 +178,13 @@ PlayerSelectState.prototype = {
     this.enterName.enabled = false;
   },
 
-  selectBall: function() {
+  selectBall: function () {
     this.pixelBall_yes = game.input.keyboard.addKey(Phaser.Keyboard.P);
     this.coolBall_yes = game.input.keyboard.addKey(Phaser.Keyboard.C);
     this.poopBall_yes = game.input.keyboard.addKey(Phaser.Keyboard.K);
+    this.travoBall_yes = game.input.keyboard.addKey(Phaser.Keyboard.T);
+    this.johnBall_yes = game.input.keyboard.addKey(Phaser.Keyboard.J);
+    this.daveBall_yes = game.input.keyboard.addKey(Phaser.Keyboard.D);
 
     this.textfield.visible = false;
     this.enterYourName_text.visible = false;

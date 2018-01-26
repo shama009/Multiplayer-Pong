@@ -18,7 +18,7 @@ let PongIntroState = function(game) {
 PongIntroState.prototype = {
 
   preload: function() {
-    game.load.image('background', 'public/assets/image/backgroundIntro.png');
+    game.load.image('background', 'public/assets/image/backgroundIntro3.png');
 
     game.load.bitmapFont('2P', 'public/assets/font/PressStart2P/2P.png', 'public/assets/font/PressStart2P/2P.xml');
 
@@ -42,7 +42,7 @@ PongIntroState.prototype = {
     game.time.events.add(Phaser.Timer.SECOND * 5, this.endGame, this);
 
     this.bubbleBuddy = this.game.add.sprite(game.world.centerX - 160, game.world.centerY - 150, 'bubbleBuddy');
-    this.bubbleBuddy.animations.add('wobble', [ 0,1,2,3,0,1,2,3,0,0,1,2,3,0,1,2,3,0], 3,  true);
+    this.bubbleBuddy.animations.add('wobble', [ 0,0,1,1,2,2,3,3,0,0,0,0,1,1,2,2,3,3,0,0,0,0], 5,  true);
     this.bubbleBuddy.animations.play('wobble');
   },
 

@@ -17,12 +17,8 @@ let properties = {
 
   ballVelocity: 500,
   ballStartDelay: 2,
-  ballRandomStartingAngleLeft: [
-    -120, 120
-  ],
-  ballRandomStartingAngleRight: [
-    -60, 60
-  ],
+  ballRandomStartingAngleLeft: [-120, 120],
+  ballRandomStartingAngleRight: [-60, 60],
   ballVelocityIncrement: 25,
   ballReturnCount: 4,
 
@@ -47,7 +43,7 @@ let gameText = {
   gamePresents: 'UCSD BootCamp Games',
   pong2k: ' if.js\n\nMultiplayer Pong',
   enterYourName: '\nEnter nickname : ',
-  ballOptions: 'Pixel Ball...\n \nCool Ball...\n \nPoop Ball...',
+  ballOptions: 'Pixel Ball...\n \nCool Emoji...\n \nPoop Emoji...',
   ballKeyCommands: '[P]\n \n[C]\n \n[K]',
   oneP: 'Single Player\nPress[1]',
   twoP: 'Two Player\nPress [2]',
@@ -65,7 +61,7 @@ let gameText = {
 // Main Game State
 // =============================================================================
 
-let MainState = function(game) {
+let MainState = function (game) {
   //collection of variables used in the game//
   this.backgroundImage
   this.dividingLine;
@@ -123,23 +119,26 @@ let MainState = function(game) {
 
 MainState.prototype = {
 
-  init: function() {
+  init: function () {
     //keep game running if you open a new window
     game.stage.disableVisibilityChange = true;
   },
 
-  preload: function() {
+  preload: function () {
     //loading all the assets//
     game.load.image('paddleLeft', 'public/assets/image/paddleBlue.png');
     game.load.image('paddleRight', 'public/assets/image/paddleRed.png');
 
     game.load.image('pixel', 'public/assets/image/ball4.png');
     game.load.image('travo', 'public/assets/image/travo.png');
+    game.load.image('dave', 'public/assets/image/dave.png');
+    game.load.image('john', 'public/assets/image/john.png');
     game.load.image('cool', 'public/assets/image/cool.png');
     game.load.image('blown', 'public/assets/image/blown.png');
     game.load.image('poop', 'public/assets/image/poop.png');
 
     game.load.image('background', 'public/assets/image/fancy-court.png');
+    
 
     game.load.bitmapFont('2P', 'public/assets/font/PressStart2P/2P.png', 'public/assets/font/PressStart2P/2P.xml');
 
@@ -154,7 +153,7 @@ MainState.prototype = {
     game.load.audio('Fairlight', ['public/assets/sound/WE ARE NEW by FAIRLIGHT(1).ogg', 'public/assets/sound/WE ARE NEW by FAIRLIGHT(1).mp3']);
   },
 
-  create: function() {
+  create: function () {
 
     this.godPower = true;
 
@@ -183,7 +182,7 @@ MainState.prototype = {
 
   },
 
-  update: function() {
+  update: function () {
     //actions that are updated continually throughout the game//
 
     game.physics.arcade.overlap(this.ball, [
@@ -209,14 +208,18 @@ MainState.prototype = {
 
   },
 
-  updatePaddlePosition: function() {
+  updatePaddlePosition: function () {
     // myLogger('updatePaddlePosition');
     var pack = [];
-    pack.push({y: this.paddle.y, v: this.paddle.body.velocity.y, id: socket.id});
+    pack.push({
+      y: this.paddle.y,
+      v: this.paddle.body.velocity.y,
+      id: socket.id
+    });
     socket.emit('updatePaddlePosition', pack);
   },
 
-  receivePaddlePosition: function(data) {
+  receivePaddlePosition: function (data) {
     if (socket.id != data[0].id) {
       this.paddleOpponent.y = data[0].y;
       this.paddleOpponent.body.velocity.y = data[0].v;
@@ -227,7 +230,7 @@ MainState.prototype = {
 
   },
 
-  updateBallPosition: function() {
+  updateBallPosition: function () {
     // myLogger("BALL X: " + this.ball.x + "BALL Y: " + this.ball.y + "BALL VELOCITY: " + this.ball.body.velocity)
     if (properties.playerSide == 'left' && this.ball.x < properties.screenWidth / 2) {
       var pack = [];
@@ -259,7 +262,7 @@ MainState.prototype = {
     // myLogger("BALL X: " + this.ball.x + "BALL Y: " + this.ball.y + "BALL VELOCITY X: " + this.ball.body.velocity.x + "BALL VELOCITY Y: " + this.ball.body.velocity.y)
   },
 
-  receiveBallPosition: function(data) {
+  receiveBallPosition: function (data) {
     // myLogger(this.ballPositionArray)
     // myLogger("Array length: " + this.ballPositionArray.length)
     // myLogger('*receiveBallPosition' + JSON.stringify(data));
@@ -300,7 +303,7 @@ MainState.prototype = {
   //   ]);
   // },
 
-  createGraphics: function() {
+  createGraphics: function () {
     this.music = game.add.audio('Fairlight', 1, true);
 
     this.backgroundImage = game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.5);
@@ -359,13 +362,13 @@ MainState.prototype = {
     this.hideTextFields();
   },
 
-  initKeyboard: function() {
+  initKeyboard: function () {
     //keyboard setup//
     this.paddleLeft_up = game.input.keyboard.addKey(Phaser.Keyboard.UP);
     this.paddleLeft_down = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
   },
 
-  initKeyboard_2P: function(data) {
+  initKeyboard_2P: function (data) {
     this.paddle_up = game.input.keyboard.addKey(Phaser.Keyboard.UP);
     this.paddle_down = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
 
@@ -374,7 +377,7 @@ MainState.prototype = {
     this.secretPaddleCombo3 = game.input.keyboard.addKey(Phaser.Keyboard.D);
   },
 
-  createBall: function(x, y) {
+  createBall: function (x, y) {
     //create ball with physics//
     if (properties.playerNumber == 2) {
       var ball = game.add.sprite(x, y, 'pixel');
@@ -383,6 +386,18 @@ MainState.prototype = {
     } else if (this.game.state.states['main']._ballChoice == "pixel") {
       var ball = game.add.sprite(x, y, 'pixel');
       ball.scale.setTo(.5, .5);
+      myLogger(ball)
+    } else if (this.game.state.states['main']._ballChoice == "dave") {
+      var ball = game.add.sprite(x, y, 'dave');
+      ball.scale.setTo(1, 1);
+      myLogger(ball)
+    } else if (this.game.state.states['main']._ballChoice == "john") {
+      var ball = game.add.sprite(x, y, 'john');
+      ball.scale.setTo(.25, .25);
+      myLogger(ball)
+    } else if (this.game.state.states['main']._ballChoice == "travo") {
+      var ball = game.add.sprite(x, y, 'travo');
+      ball.scale.setTo(.19, .19);
       myLogger(ball)
     } else if (this.game.state.states['main']._ballChoice == "cool") {
       var ball = game.add.sprite(x, y, 'cool');
@@ -402,7 +417,7 @@ MainState.prototype = {
     return ball;
   },
 
-  createDividingLine: function(x, y) {
+  createDividingLine: function (x, y) {
     this.dividingLine = game.add.graphics(x, y);
     this.dividingLine.lineStyle(5, 0x848484, 1);
 
@@ -412,7 +427,7 @@ MainState.prototype = {
     }
   },
 
-  createPaddleLeft: function(x, y) {
+  createPaddleLeft: function (x, y) {
     //create left paddle with physics//
     let paddle = game.add.sprite(x, y, 'paddleLeft');
     paddle.anchor.setTo(0.5, 0.5);
@@ -425,7 +440,7 @@ MainState.prototype = {
     return paddle;
   },
 
-  createPaddleRight: function(x, y) {
+  createPaddleRight: function (x, y) {
     //create right paddle with physics//
     let paddle = game.add.sprite(x, y, 'paddleRight');
     paddle.anchor.setTo(0.5, 0.5);
@@ -438,7 +453,7 @@ MainState.prototype = {
     return paddle;
   },
 
-  createGodPaddle: function() {
+  createGodPaddle: function () {
     if (this.paddle.x == 15 && this.godPower == true) {
       this.paddle.x = 5;
       this.paddle.scale.setTo(2, 2);
@@ -457,7 +472,9 @@ MainState.prototype = {
 
   updateGodPaddle() {
     pack = []
-    pack.push({x: this.paddle.x})
+    pack.push({
+      x: this.paddle.x
+    })
     socket.emit('updateGodPaddle', pack);
   },
 
@@ -467,7 +484,7 @@ MainState.prototype = {
     game.sound.play('airHorn');
   },
 
-  destroyGodPaddle: function() {
+  destroyGodPaddle: function () {
     if (this.paddle.x == 5) {
       this.paddle.x = 15;
     } else {
@@ -479,7 +496,9 @@ MainState.prototype = {
 
   updateDestroyGodPaddle() {
     pack = []
-    pack.push({x: this.paddle.x})
+    pack.push({
+      x: this.paddle.x
+    })
     socket.emit('updateDestroyGodPaddle', pack);
   },
 
@@ -488,7 +507,7 @@ MainState.prototype = {
     this.paddleOpponent.scale.setTo(0.3, 0.3);
   },
 
-  startIntro: function() {
+  startIntro: function () {
     //intro screen//
     this.ball.visible = false;
     this.scoreLeft_text.visible = false;
@@ -501,7 +520,7 @@ MainState.prototype = {
     game.time.events.add(Phaser.Timer.SECOND * 5, this.startGame, this);
   },
 
-  startIntro_2P: function() {
+  startIntro_2P: function () {
     this.ball.visible = false;
     this.scoreLeft_text.visible = false;
     this.scoreRight_text.visible = false;
@@ -516,7 +535,7 @@ MainState.prototype = {
     myLogger('updatePlayer: ' + JSON.stringify(socket.id));
   },
 
-  receivePlayer: function(data) {
+  receivePlayer: function (data) {
     myLogger("receivePlayer: " + JSON.stringify(data));
     this.waiting.visible = false;
 
@@ -533,7 +552,7 @@ MainState.prototype = {
     game.time.events.add(Phaser.Timer.SECOND * 5, this.startGame, this);
   },
 
-  startGame: function() {
+  startGame: function () {
     this.scoreLeft_text.visible = true;
     this.scoreRight_text.visible = true;
     this.playerNameLeft.visible = true;
@@ -560,12 +579,12 @@ MainState.prototype = {
 
   },
 
-  updatePlayerName: function() {
+  updatePlayerName: function () {
     myLogger('updatePlayerName')
     socket.emit('updatePlayerName', properties.playerName);
   },
 
-  receivePlayerName: function(data) {
+  receivePlayerName: function (data) {
     myLogger('receivePlayerName: ' + data)
     myLogger(this.playerNameLeft.text)
     if (this.playerNameLeft.text.length == 0) {
@@ -577,7 +596,7 @@ MainState.prototype = {
     }
   },
 
-  startBall: function() {
+  startBall: function () {
     // this.ball.visible = true;
     this.ballVelocity = properties.ballVelocity;
     this.ballReturnCount = 0;
@@ -587,7 +606,7 @@ MainState.prototype = {
     game.physics.arcade.velocityFromAngle(this.randomAngle, properties.ballVelocity, this.ball.body.velocity);
   },
 
-  resetBall: function() {
+  resetBall: function () {
     // this.ball.visible = false;
     // myLogger("ball visibility: " + this.ball.visible);
 
@@ -607,7 +626,7 @@ MainState.prototype = {
     game.time.events.add(Phaser.Timer.SECOND * properties.ballStartDelay, this.startBall, this);
   },
 
-  resetBall_2P: function() {
+  resetBall_2P: function () {
     // this.ball.visible = false;
     // myLogger("ball visible: " + this.ball.visible)
 
@@ -631,7 +650,11 @@ MainState.prototype = {
   updateBallLaunchPosition() {
     myLogger('1_updateBallLaunchPosition');
     const pack = [];
-    pack.push({missedSide: this.missedSide, randomAngle: this.randomAngle, randomPositionY: this.randomPositionY});
+    pack.push({
+      missedSide: this.missedSide,
+      randomAngle: this.randomAngle,
+      randomPositionY: this.randomPositionY
+    });
     socket.emit('updateBallLaunchPosition', pack);
     myLogger('2_updateBallLaunchPosition: ' + JSON.stringify(pack));
   },
@@ -663,7 +686,7 @@ MainState.prototype = {
     myLogger("ball visible: " + this.ball.visible)
   },
 
-  enablePaddles: function(enabled) {
+  enablePaddles: function (enabled) {
     this.paddleLeft.visible = enabled;
     this.paddleRight.visible = enabled;
     this.paddleRight.visible = enabled;
@@ -673,7 +696,7 @@ MainState.prototype = {
     this.paddleRight.y = game.world.centerY;
   },
 
-  enablePaddles_2P: function(enabled) {
+  enablePaddles_2P: function (enabled) {
     this.paddle.visible = enabled;
     this.paddleOpponent.visible = enabled;
     this.paddle_up.enabled = true;
@@ -682,18 +705,18 @@ MainState.prototype = {
     this.paddleOpponent.y = game.world.centerY;
   },
 
-  enableBoundaries: function(enabled) {
+  enableBoundaries: function (enabled) {
     game.physics.arcade.checkCollision.left = enabled;
     game.physics.arcade.checkCollision.right = enabled;
   },
 
-  paddleDelay: function() {
+  paddleDelay: function () {
     this.timer = 0;
     this.luckyNumber = Math.floor((Math.random() * 25) + 25)
     myLogger("paddle delay")
   },
 
-  moveLeftPaddle: function() {
+  moveLeftPaddle: function () {
     if (this.paddleLeft_up.isDown) {
       this.paddleLeft.body.velocity.y = -properties.paddleVelocity;
     } else if (this.paddleLeft_down.isDown) {
@@ -703,7 +726,7 @@ MainState.prototype = {
     }
   },
 
-  moveRightPaddle: function() {
+  moveRightPaddle: function () {
 
     let rightDirection = this.ball.body.velocity.x > 0
     this.timer++;
@@ -723,7 +746,7 @@ MainState.prototype = {
     }
   },
 
-  movePaddle: function() {
+  movePaddle: function () {
     let newKey;
     if (this.paddle_up.isDown) {
       this.paddle.body.velocity.y = -properties.paddleVelocity;
@@ -742,7 +765,7 @@ MainState.prototype = {
     }
   },
 
-  collideWithPaddle: function(ball, paddle) {
+  collideWithPaddle: function (ball, paddle) {
     game.sound.play('soundBallHit');
 
     let returnAngle;
@@ -778,14 +801,20 @@ MainState.prototype = {
     }
   },
 
-  updateCollideWithPaddle: function() {
+  updateCollideWithPaddle: function () {
     var pack = [];
-    pack.push({x: this.ball.x, y: this.ball.y, velocity: this.ball.body.velocity, ballVelocity: this.ballVelocity, id: socket.id});
+    pack.push({
+      x: this.ball.x,
+      y: this.ball.y,
+      velocity: this.ball.body.velocity,
+      ballVelocity: this.ballVelocity,
+      id: socket.id
+    });
     socket.emit('updateCollideWithPaddle', pack);
     myLogger('0updateCollideWithPaddle: ' + JSON.stringify(pack));
   },
 
-  receiveCollideWithPaddle: function(data) {
+  receiveCollideWithPaddle: function (data) {
     if (socket.id != data[0].id) {
       this.ball.y = data[0].y;
       this.ball.x = data[0].x;
@@ -798,7 +827,7 @@ MainState.prototype = {
     myLogger('receiveCollideWithPaddle: ' + JSON.stringify(data));
   },
 
-  ballOutOfBounds: function() {
+  ballOutOfBounds: function () {
     game.sound.play('soundBallMiss');
 
     if (properties.playerNumber == 2) {
@@ -843,14 +872,18 @@ MainState.prototype = {
     }
   },
 
-  updateScores: function() {
+  updateScores: function () {
     const pack = [];
-    pack.push({scoreLeft: this.scoreLeft, scoreRight: this.scoreRight, missedSide: this.missedSide});
+    pack.push({
+      scoreLeft: this.scoreLeft,
+      scoreRight: this.scoreRight,
+      missedSide: this.missedSide
+    });
     socket.emit('updateScores', pack);
     myLogger('updateScores: ' + JSON.stringify(pack));
   },
 
-  receiveScores: function(data) {
+  receiveScores: function (data) {
     myLogger('receiveScores: ' + JSON.stringify(data));;
     this.scoreLeft = data[0].scoreLeft;
     this.scoreRight = data[0].scoreRight;
@@ -870,27 +903,37 @@ MainState.prototype = {
     }
   },
 
-  updateScoreData: function() {
+  updateScoreData: function () {
     if ((properties.playerSide == 'left' && this.scoreLeft == properties.scoreToWin) || (properties.playerSide == 'right' && this.scoreRight == properties.scoreToWin)) {
       var pack = [];
-      pack.push({playerNameLeft: this.playerNameLeft.text, playerNameRight: this.playerNameRight.text, scoreRight: this.scoreRight, scoreLeft: this.scoreLeft});
+      pack.push({
+        playerNameLeft: this.playerNameLeft.text,
+        playerNameRight: this.playerNameRight.text,
+        scoreRight: this.scoreRight,
+        scoreLeft: this.scoreLeft
+      });
       socket.emit('updateScoreData', pack)
     }
   },
 
-  receiveScoreData: function(data) {
+  receiveScoreData: function (data) {
     myLogger("receiveScoreData");
     game.time.events.add(Phaser.Timer.SECOND * 3, this.updateMatchRecord, this);
   },
 
-  updateMatchRecord: function() {
+  updateMatchRecord: function () {
     myLogger('updateMatchRecord');
     var pack = [];
-    pack.push({playerNameLeft: this.playerNameLeft.text, playerNameRight: this.playerNameRight.text, scoreLeft: this.scoreLeft, scoreRight: this.scoreRight});
+    pack.push({
+      playerNameLeft: this.playerNameLeft.text,
+      playerNameRight: this.playerNameRight.text,
+      scoreLeft: this.scoreLeft,
+      scoreRight: this.scoreRight
+    });
     socket.emit('updateMatchRecord', pack);
   },
 
-  receiveMatchRecord: function(data) {
+  receiveMatchRecord: function (data) {
     myLogger("receiveMatchRecord: " + JSON.stringify(data))
 
     properties.ratio = data[1].player1_score + "    " + data[1].player2_score;
@@ -905,11 +948,11 @@ MainState.prototype = {
     game.state.start('matchRecordSelect');
   },
 
-  startNewGame: function() {
+  startNewGame: function () {
     game.state.start('playerSelect');
   },
 
-  hideTextFields: function() {
+  hideTextFields: function () {
     this.instructions.visible = false;
     this.instructionsRight.visible = false;
     this.instructionsLeft.visible = false;
@@ -918,13 +961,13 @@ MainState.prototype = {
     this.waiting.visible = false;
   },
 
-  resetScores: function() {
+  resetScores: function () {
     this.scoreLeft = 0;
     this.scoreRight = 0;
     this.updateScoreTextFields();
   },
 
-  updateScoreTextFields: function() {
+  updateScoreTextFields: function () {
     this.scoreLeft_text.text = this.scoreLeft;
     this.scoreRight_text.text = this.scoreRight;
   }
