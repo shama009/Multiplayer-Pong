@@ -1,7 +1,9 @@
 # Multiplayer-Pong
-[Play.](https://multiplayer-pong-ifjs.herokuapp.com/)
+A multiplayer game of Pong using Node.js Socket.io and Phaser.
+The user has the option to practice in single-player mode against a bot with the option of chosing amongst different emoji as a pong ball.
 
-# Instructions
+# Link to Heroku App
+[Play.](https://multiplayer-pong-ifjs.herokuapp.com/)
 
 # Frameworks/Database used:
 1. [Node.js](https://nodejs.org/en/)
